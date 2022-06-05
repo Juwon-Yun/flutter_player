@@ -18,13 +18,6 @@ Flutter를 곁들인 멀티 플렛폼 Video 플레이어
 ![video_player_API_31](https://user-images.githubusercontent.com/85836879/172043748-c44063ab-a41e-4ecd-9501-98bb8f754d0c.gif)
 
 ### 📖 Review
+비디오를 재생 중일 때 다른 비디오를 선택하는 경우 didUpdateWidget 생명주기를 사용하였다.
 
-flutter 모듈명을 video_player로 초기 설정하였더니 플러그인 이름과 충돌이 생겨버렸다.
-    
-    A package may not list itself as a dependency.
-
-다행히 프로젝트를 새로만들지 않고 모듈명과 import 경로를 재설정해주어 빌드에 문제가 없었다.
-
-didUpdateWidget 메소드의 중요함을 다시 생각하게 되었다.
-
-현재 코드는 비디오만 선택하게 되어있지만 Image객체로 변경한다면 이미지로 선택할 수 있다.
+현재 코드는 비디오만 선택하게 되어있지만 Image로 변경하면 이미지로 선택할 수 있다.
