@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_player/screen/home_screen.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:video_player/video_player.dart';
 
@@ -39,6 +40,7 @@ class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
       // error 방지 currentPosition도 초기화.
       setState((){
         currentPosition = Duration();
+        showControls = false;
       });
     }
   }
@@ -47,13 +49,16 @@ class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
     videoController = VideoPlayerController.file(File(widget.xFile.path));
 
     await videoController!.initialize();
-
+    videoController!.play();
     // videoController가 값이 변경될떄마다 listener가 실행됨.
     videoController!.addListener(() {
       final currentPosition = videoController!.value.position;
 
       // 바뀔떄마다 currentPosition 업데이트
       setState(() {
+        if(currentPosition == videoController!.value.duration){
+          showControls = true;
+        }
         this.currentPosition = currentPosition;
       });
     });
@@ -67,33 +72,36 @@ class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
     return videoController != null
         // AspectRatio 위젯으로 동영상의 width, height 만큼 설정
         ? Scaffold(
-            body: Center(
-              child: AspectRatio(
-                  aspectRatio: videoController!.value.aspectRatio,
-                  child: GestureDetector(
-                    onTap: (){
-                      setState((){
-                        showControls = !showControls;
-                      });
-                    },
-                    child: Stack(children: [
-                      VideoPlayer(videoController!),
-                      if(showControls)
-                      _Controls(
-                        onPlayPressed: onPlayPressed,
-                        onForwardPressed: onForwardPressed,
-                        onReversPressed: onReversPressed,
-                        isPlay: videoController!.value.isPlaying,
-                      ),
-                      if(showControls)
-                      _NewVideo(onPressed: widget.onNewVideoPressed),
-                      _SliderBottom(
-                        currentPosition: currentPosition,
-                        maxPosition: videoController!.value.duration,
-                        valueChanged: onSlideChange,
-                      )
-                    ]),
-                  )),
+            body: Container(
+              decoration: getBoxDecoration(),
+              child: Center(
+                child: AspectRatio(
+                    aspectRatio: videoController!.value.aspectRatio,
+                    child: GestureDetector(
+                      onTap: (){
+                        setState((){
+                          showControls = !showControls;
+                        });
+                      },
+                      child: Stack(children: [
+                        VideoPlayer(videoController!),
+                        if(showControls)
+                        _Controls(
+                          onPlayPressed: onPlayPressed,
+                          onForwardPressed: onForwardPressed,
+                          onReversPressed: onReversPressed,
+                          isPlay: videoController!.value.isPlaying,
+                        ),
+                        if(showControls)
+                        _NewVideo(onPressed: widget.onNewVideoPressed),
+                        _SliderBottom(
+                          currentPosition: currentPosition,
+                          maxPosition: videoController!.value.duration,
+                          valueChanged: onSlideChange,
+                        )
+                      ]),
+                    )),
+              ),
             ),
           )
         : const CircularProgressIndicator();
@@ -107,6 +115,7 @@ class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
       // Icon을 토글하려 setState()
       setState(() {});
     } else {
+      showControls = false;
       videoController!.play();
       setState(() {});
     }

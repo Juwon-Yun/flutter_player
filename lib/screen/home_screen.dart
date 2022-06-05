@@ -20,13 +20,16 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return AnnotatedRegion(
       value: SystemUiOverlayStyle.light,
-      child: Scaffold(body: video != null ? renderVideo() :renderEmpty()),
+      child: Scaffold(body: video != null ? renderVideo() : renderEmpty()),
     );
   }
 
-  Widget renderVideo(){
+  Widget renderVideo() {
     return Center(
-      child: CustomVideoPlayer(xFile: video!, onNewVideoPressed: onNewVideoPressed,),
+      child: CustomVideoPlayer(
+        xFile: video!,
+        onNewVideoPressed: onNewVideoPressed,
+      ),
     );
   }
 
@@ -65,17 +68,13 @@ class _HomeScreenState extends State<HomeScreen> {
 class _Logo extends StatelessWidget {
   final VoidCallback voidCallback;
 
-  const _Logo({
-    Key? key,
-    required this.voidCallback
-  }) : super(key: key);
+  const _Logo({Key? key, required this.voidCallback}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
         onTap: voidCallback, child: Image.asset('asset/img/logo.png'));
   }
-
 }
 
 class _AppName extends StatelessWidget {
