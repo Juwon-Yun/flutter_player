@@ -2,6 +2,7 @@ import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_player/component/custom_video.dart';
 import 'package:image_picker/image_picker.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -25,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget renderVideo(){
     return Center(
-      child: Text('video'),
+      child: CustomVideoPlayer(xFile: video!),
     );
   }
 
