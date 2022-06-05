@@ -26,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget renderVideo(){
     return Center(
-      child: CustomVideoPlayer(xFile: video!),
+      child: CustomVideoPlayer(xFile: video!, onNewVideoPressed: onNewVideoPressed,),
     );
   }
 
@@ -39,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          _Logo(voidCallback: onLogoTap),
+          _Logo(voidCallback: onNewVideoPressed),
           // SizedBox를 Padding대신 쓰는 경우는 한번더 감싸야하기 때문에 SizedBox를 안에 넣는것을 선호한다.
           const SizedBox(
             height: 30.0,
@@ -50,7 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  void onLogoTap() async {
+  void onNewVideoPressed() async {
     // gallery로만 가져오기
     final video = await ImagePicker().pickVideo(source: ImageSource.gallery);
     // iOS 이미지나 비디오 없으면 에뮬레이터로 드래그 엔 드롭해서 옮긴다.
