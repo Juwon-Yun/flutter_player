@@ -84,7 +84,7 @@ class _AppName extends StatelessWidget {
   Widget build(BuildContext context) {
     const textStyle = TextStyle(
       color: Colors.white,
-      fontSize: 30.0,
+      fontSize: 40.0,
       fontWeight: FontWeight.w300,
     );
 
@@ -95,6 +95,7 @@ class _AppName extends StatelessWidget {
           'Video',
           style: textStyle,
         ),
+        SizedBox(width: MediaQuery.of(context).size.width / 30),
         Text('PLAYER', style: textStyle.copyWith(fontWeight: FontWeight.w700))
       ],
     );
@@ -107,6 +108,6 @@ BoxDecoration getBoxDecoration() => const BoxDecoration(
             end: Alignment.bottomCenter,
             colors: [
           // begin
-          Color(0xFF2A3A7C),
-          Color(0xFF000118),
+          Color(0xFF5F2C82),
+          Color(0xFF49A09D),
         ]));

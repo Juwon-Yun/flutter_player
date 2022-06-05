@@ -123,7 +123,7 @@ class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
 
   void onReversPressed() {
     // 현재 재생중인 실행값
-    final currentPosition = videoController!.value.duration;
+    final currentPosition = videoController!.value.position;
 
     Duration position = const Duration();
     // 실행중인 값이 3초 보다 크다면
@@ -137,7 +137,7 @@ class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
   void onForwardPressed() {
     // 전체 실행 값
     final maxPosition = videoController!.value.duration;
-    final currentPosition = videoController!.value.duration;
+    final currentPosition = videoController!.value.position;
 
     Duration position = const Duration();
 
